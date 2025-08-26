@@ -8,16 +8,34 @@ run-dist: install
 check-updates:
 	.\gradlew.bat dependencyUpdates
 
+# Полная проверка стиля
 lint:
+	.\gradlew.bat checkstyleMain checkstyleTest
+
+# Только основной код
+lint-main:
 	.\gradlew.bat checkstyleMain
+
+# Проверка тестового кода
+lint-test:
+	.\gradlew.bat checkstyleTest
 
 build:
 	.\gradlew.bat clean build
+
+clean:
+	.\gradlew.bat clean
+
+test:
+	.\gradlew.bat test
+
 
 # Unix-версия (для Git Bash/WSL)
 ifeq ($(OS),Windows_NT)
     # Windows-команды выше
 else
+
+
 install(Unix):
 	./gradlew clean install
 
