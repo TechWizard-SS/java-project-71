@@ -1,5 +1,4 @@
 import hexlet.code.Differ;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Files;
@@ -9,28 +8,60 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DifferTest {
 
-    private static String expectedStylish;
+    private static final String FIXTURES_DIR = "src/test/resources/fixtures/";
 
-    @BeforeAll
-    public static void beforeAll() throws Exception {
-        expectedStylish = Files.readString(Paths.get("stylish.txt"));
+    @Test
+    public void testGenerateStylishFlat() throws Exception {
+        String filePath1 = FIXTURES_DIR + "fixtures/file1.json";
+        String filePath2 = FIXTURES_DIR + "fixtures/file2.json";
+
+        String expected = Files.readString(Paths.get(FIXTURES_DIR + "fixtures/expected_stylish_flat.txt")).trim();
+        String actual = Differ.generate(filePath1, filePath2, "stylish");
+
+        assertEquals(expected, actual, "Stylish flat diff is incorrect");
     }
 
     @Test
-    public void testGenerate() throws Exception {
-        String filePath1 = "file1.json";
-        String filePath2 = "file2.json";
+    public void testGeneratePlainFlat() throws Exception {
+        String filePath1 = FIXTURES_DIR + "fixtures/file1.json";
+        String filePath2 = FIXTURES_DIR + "fixtures/file2.json";
 
-        String actual = Differ.generate(filePath1, filePath2);
-        assertEquals(expectedStylish.trim(), actual.trim());
+        String expected = Files.readString(Paths.get(FIXTURES_DIR + "fixtures/expected_plain_flat.txt")).trim();
+        String actual = Differ.generate(filePath1, filePath2, "plain");
+
+        assertEquals(expected, actual, "Plain flat diff is incorrect");
     }
 
     @Test
-    public void testGenerateWithAbsolutePaths() throws Exception {
-        String filePath1 = Paths.get("file1.json").toAbsolutePath().toString();
-        String filePath2 = Paths.get("file2.json").toAbsolutePath().toString();
+    public void testGenerateJsonFlat() throws Exception {
+        String filePath1 = FIXTURES_DIR + "fixtures/file1.json";
+        String filePath2 = FIXTURES_DIR + "fixtures/file2.json";
 
-        String actual = Differ.generate(filePath1, filePath2);
-        assertEquals(expectedStylish.trim(), actual.trim());
+        String actual = Differ.generate(filePath1, filePath2, "json");
+
+        // Просто проверим, что строка начинается с '[' — массив JSON
+        assertEquals('[', actual.charAt(0), "Json format should start with [");
+    }
+
+    @Test
+    public void testGenerateStylishNested() throws Exception {
+        String filePath1 = FIXTURES_DIR + "fixtures/nested1.json";
+        String filePath2 = FIXTURES_DIR + "fixtures/nested2.json";
+
+        String expected = Files.readString(Paths.get(FIXTURES_DIR + "fixtures/expected_stylish_nested.txt")).trim();
+        String actual = Differ.generate(filePath1, filePath2, "stylish");
+
+        assertEquals(expected, actual, "Stylish nested diff is incorrect");
+    }
+
+    @Test
+    public void testGeneratePlainNested() throws Exception {
+        String filePath1 = FIXTURES_DIR + "fixtures/nested1.json";
+        String filePath2 = FIXTURES_DIR + "fixtures/nested2.json";
+
+        String expected = Files.readString(Paths.get(FIXTURES_DIR + "fixtures/expected_plain_nested.txt")).trim();
+        String actual = Differ.generate(filePath1, filePath2, "plain");
+
+        assertEquals(expected, actual, "Plain nested diff is incorrect");
     }
 }

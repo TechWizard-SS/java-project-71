@@ -1,5 +1,7 @@
 {
-  "timeout": 20,
-  "verbose": true,
-  "host": "hexlet.io"
+  "common": {
+    "setting1": "New Value",
+    "setting3": true
+  },
+  "group2": "value"
 }

@@ -1,0 +1,2 @@
+Property 'setting1' was updated. From 'Some value' to 'Another value'
+Property 'obj1.nestedKey' was updated. From 'value' to 'updated'

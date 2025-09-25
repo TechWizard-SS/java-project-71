@@ -1,0 +1,7 @@
+{
+  "setting1": "Another value",
+  "obj1": {
+    "nestedKey": "updated",
+    "isNested": true
+  }
+}

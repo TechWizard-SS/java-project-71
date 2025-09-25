@@ -52,4 +52,4 @@ build(Unix):
 	./gradlew clean build
 endif
 
-.PHONY: build install run-dist check-updates lint
+.PHONY: build

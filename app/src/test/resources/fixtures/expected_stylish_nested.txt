@@ -1,0 +1,9 @@
+{
+  - setting1: Some value
+  + setting1: Another value
+    obj1: {
+      - nestedKey: value
+      + nestedKey: updated
+        isNested: true
+    }
+}

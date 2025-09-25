@@ -1,71 +1,56 @@
 package hexlet.code;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
-import com.fasterxml.jackson.core.type.TypeReference;
 
 public class Differ {
+    public static String generate(String filePath1, String filePath2, String format) throws Exception {
+        Parser parser1 = new Parser();
+        Parser parser2 = new Parser();
 
-    public static String generate(String filePath1, String filePath2) throws Exception {
-        Map<String, Object> data1 = getData(filePath1);
-        Map<String, Object> data2 = getData(filePath2);
+        parser1.parseFile(filePath1);
+        parser2.parseFile(filePath2);
 
-        return buildDiff(data1, data2);
-    }
-
-    // Метод для чтения и парсинга файла
-    public static Map<String, Object> getData(String filePath) throws Exception {
-        String content = readFile(filePath);
-        return parse(content);
-    }
-
-    // Метод для чтения файла
-    private static String readFile(String filePath) throws Exception {
-        Path path = Paths.get(filePath).toAbsolutePath().normalize();
-        return Files.readString(path);
-    }
-
-    // Метод для парсинга JSON с использованием TypeReference
-    private static Map<String, Object> parse(String content) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(content, new TypeReference<Map<String, Object>>() { });
+        List<DiffNode> diff = buildDiff(parser1.getData(), parser2.getData());
+        return Formatter.format(diff, format); // делегируем выбор форматера
     }
 
     // Метод для построения различий
-    private static String buildDiff(Map<String, Object> data1, Map<String, Object> data2) {
-        // Используем TreeSet для автоматической сортировки ключей
+    private static List<DiffNode> buildDiff(Map<String, Object> data1, Map<String, Object> data2) {
+        List<DiffNode> resultDiff = new ArrayList<>();
+
         TreeSet<String> allKeys = new TreeSet<>();
         allKeys.addAll(data1.keySet());
         allKeys.addAll(data2.keySet());
-
-        StringBuilder result = new StringBuilder("{\n");
 
         for (String key : allKeys) {
             Object value1 = data1.get(key);
             Object value2 = data2.get(key);
 
-            if (value1 != null && value2 != null) {
-                if (value1.equals(value2)) {
-                    // Ключ есть в обоих файлах с одинаковым значением
-                    result.append("    ").append(key).append(": ").append(value1).append("\n");
-                } else {
-                    // Ключ есть в обоих файлах, но значения разные
-                    result.append("  - ").append(key).append(": ").append(value1).append("\n");
-                    result.append("  + ").append(key).append(": ").append(value2).append("\n");
-                }
-            } else if (value1 != null) {
-                // Ключ есть только в первом файле
-                result.append("  - ").append(key).append(": ").append(value1).append("\n");
+            if (value1 == null) {
+                DiffNode node = new DiffNode(key, null, value2, "ADDED");
+                resultDiff.add(node);
+            } else if (value2 == null) {
+                resultDiff.add(new DiffNode(key, value1, null, "REMOVED"));
+            } else if (value1.equals(value2)) {
+                resultDiff.add(new DiffNode(key, value1, null, "UNCHANGED"));
+            } else if (value1 instanceof Map && value2 instanceof Map) {
+                // Оба значения Map -> это вложенный объект
+                // Рекурсивно вызываем buildDiff для Map
+                @SuppressWarnings("unchecked") // чтобы убрать warning, если компилятор всё равно ругается
+                List<DiffNode> children = buildDiff(
+                        (Map<String, Object>) value1,
+                        (Map<String, Object>) value2
+                );
+                DiffNode node = new DiffNode(key, "NESTED", children);
+                resultDiff.add(node);
             } else {
-                // Ключ есть только во втором файле
-                result.append("  + ").append(key).append(": ").append(value2).append("\n");
+                DiffNode node = new DiffNode(key, value1, value2, "CHANGED");
+                resultDiff.add(node);
             }
         }
-
-        result.append("}");
-        return result.toString();
+        return resultDiff;
     }
 }
