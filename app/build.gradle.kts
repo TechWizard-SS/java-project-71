@@ -16,6 +16,8 @@ java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(21))
     }
+    sourceCompatibility = JavaVersion.VERSION_21  // Явно для ясности
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 repositories {
@@ -87,13 +89,13 @@ sonar {
         property("sonar.projectKey", "TechWizard-SS_java-project-71")
         property("sonar.organization", "techwizard-ss")
         property("sonar.host.url", "https://sonarcloud.io")
-        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
-        property("sonar.sources", "src/main")  // Директория исходников
-        property("sonar.tests", "src/test")    // Директория тестов
-        property("sonar.java.binaries", "build/classes/java/main")  // Bytecode для анализа
+        property("sonar.sources", "src/main")
+        property("sonar.tests", "src/test")
+        property("sonar.java.binaries", "build/classes/java/main")
         property("sonar.java.test.binaries", "build/classes/java/test")
-        property("sonar.java.test.reportPaths", "build/test-results/test")  // JUnit reports
-        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")  // Coverage
-        property("sonar.exclusions", "**/build/**,**/generated/**")  // Игнор generated
+        property("sonar.java.test.reportPaths", "build/test-results/test")
+        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
+        property("sonar.exclusions", "**/build/**,**/generated/**")
+        property("sonar.verbose", "true")
     }
 }
