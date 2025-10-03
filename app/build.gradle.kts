@@ -88,5 +88,12 @@ sonar {
         property("sonar.organization", "techwizard-ss")
         property("sonar.host.url", "https://sonarcloud.io")
         property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
+        property("sonar.sources", "src/main")  // Директория исходников
+        property("sonar.tests", "src/test")    // Директория тестов
+        property("sonar.java.binaries", "build/classes/java/main")  // Bytecode для анализа
+        property("sonar.java.test.binaries", "build/classes/java/test")
+        property("sonar.java.test.reportPaths", "build/test-results/test")  // JUnit reports
+        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")  // Coverage
+        property("sonar.exclusions", "**/build/**,**/generated/**")  // Игнор generated
     }
 }
