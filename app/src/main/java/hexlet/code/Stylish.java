@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Stylish {
     public static String format(List<DiffNode> diff) {
-        return "{\n" + formatNested(diff, 0) + "}";
+        return "{\r\n" + formatNested(diff, 0) + "}";
     }
 
     private static String formatNested(List<DiffNode> nodes, int prefixLevel) {
@@ -19,7 +19,7 @@ public class Stylish {
                             .append(node.getKey())
                             .append(": ")
                             .append(node.getNewValue())
-                            .append("\n");
+                            .append("\r\n");
                     break;
                 case "REMOVED":
                     result.append(prefix)
@@ -27,7 +27,7 @@ public class Stylish {
                             .append(node.getKey())
                             .append(": ")
                             .append(node.getOldValue())
-                            .append("\n");
+                            .append("\r\n");
                     break;
                 case "CHANGED":
                     result.append(prefix)
@@ -35,14 +35,14 @@ public class Stylish {
                             .append(node.getKey())
                             .append(": ")
                             .append(node.getOldValue())
-                            .append("\n");
+                            .append("\r\n");
 
                     result.append(prefix)
                             .append("  + ")
                             .append(node.getKey())
                             .append(": ")
                             .append(node.getNewValue())
-                            .append("\n");
+                            .append("\r\n");
                     break;
                 case "UNCHANGED":
                     result.append(prefix)
@@ -50,18 +50,18 @@ public class Stylish {
                             .append(node.getKey())
                             .append(": ")
                             .append(node.getOldValue())
-                            .append("\n");
+                            .append("\r\n");
                     break;
                 case "NESTED":
                     result.append(prefix)
                             .append("    ")
                             .append(node.getKey())
-                            .append(": {\n");
+                            .append(": {\r\n");
 
                     result.append(formatNested(node.getChildren(), prefixLevel + 1));
 
                     result.append(prefix)
-                            .append("    }\n");
+                            .append("    }\r\n");
                     break;
                 default:
                     break;

@@ -31,7 +31,7 @@ public class Parser {
         });
     }
 
-    public Map<java.lang.String, Object> getData() {
+    public Map<String, Object> getData() {
         return data;
     }
 

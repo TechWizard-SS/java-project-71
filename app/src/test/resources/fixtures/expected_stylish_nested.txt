@@ -1,9 +1,9 @@
 {
-  - setting1: Some value
-  + setting1: Another value
     obj1: {
+        isNested: true
       - nestedKey: value
       + nestedKey: updated
-        isNested: true
     }
+  - setting1: Some value
+  + setting1: Another value
 }

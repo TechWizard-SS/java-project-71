@@ -1,26 +1,34 @@
 package hexlet.code;
 
+import java.util.Map;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Plain {
     public static String format(List<DiffNode> diff) {
-        return diff.stream()
-                .map(Plain::formatNode)
-                .filter(s -> !s.isEmpty())
-                .collect(Collectors.joining("\n"));
+        return format(diff, ""); // вызываем вспомогательный метод с пустым родительским ключом
     }
 
-    private static String formatNode(DiffNode node) {
+    // Новый вспомогательный метод, принимающий родительский ключ
+    private static String format(List<DiffNode> nodes, String parentKey) {
+        return nodes.stream()
+                .map(node -> formatNode(node, parentKey)) // передаём родительский ключ в formatNode
+                .filter(s -> !s.isEmpty())
+                .collect(Collectors.joining("\r\n"));
+    }
+
+    // Изменённый метод, принимающий родительский ключ
+    private static String formatNode(DiffNode node, String parentKey) {
+        // Формируем текущий ключ: если родитель есть, то parent.child, иначе просто child
+        String currentKey = parentKey.isEmpty() ? node.getKey() : parentKey + "." + node.getKey();
+
         return switch (node.getType()) {
             case "ADDED" -> String.format("Property '%s' was added with value: %s",
-                    node.getKey(), formatValue(node.getNewValue()));
-            case "REMOVED" -> String.format("Property '%s' was removed", node.getKey());
+                    currentKey, formatValue(node.getNewValue()));
+            case "REMOVED" -> String.format("Property '%s' was removed", currentKey);
             case "CHANGED" -> String.format("Property '%s' was updated. From %s to %s",
-                    node.getKey(), formatValue(node.getOldValue()), formatValue(node.getNewValue()));
-            case "NESTED" -> node.getChildren().stream()
-                    .map(Plain::formatNode)
-                    .collect(Collectors.joining("\n"));
+                    currentKey, formatValue(node.getOldValue()), formatValue(node.getNewValue()));
+            case "NESTED" -> format(node.getChildren(), currentKey); // передаём текущий ключ как родительский для вложенных
             default -> ""; // UNCHANGED — не выводим
         };
     }
@@ -29,10 +37,10 @@ public class Plain {
         if (value == null) {
             return "null";
         }
-        if (value instanceof String) {
+        if (value instanceof String || value instanceof Boolean) {
             return "'" + value + "'";
         }
-        if (value instanceof java.util.Map || value instanceof java.util.List) {
+        if (value instanceof Map || value instanceof java.util.List) {
             return "[complex value]";
         }
         return value.toString();

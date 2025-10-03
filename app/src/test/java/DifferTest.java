@@ -12,10 +12,10 @@ public class DifferTest {
 
     @Test
     public void testGenerateStylishFlat() throws Exception {
-        String filePath1 = FIXTURES_DIR + "fixtures/file1.json";
-        String filePath2 = FIXTURES_DIR + "fixtures/file2.json";
+        String filePath1 = FIXTURES_DIR + "file1.json";
+        String filePath2 = FIXTURES_DIR + "file2.json";
 
-        String expected = Files.readString(Paths.get(FIXTURES_DIR + "fixtures/expected_stylish_flat.txt")).trim();
+        String expected = Files.readString(Paths.get(FIXTURES_DIR + "expected_stylish_flat.txt")).trim();
         String actual = Differ.generate(filePath1, filePath2, "stylish");
 
         assertEquals(expected, actual, "Stylish flat diff is incorrect");
@@ -23,10 +23,10 @@ public class DifferTest {
 
     @Test
     public void testGeneratePlainFlat() throws Exception {
-        String filePath1 = FIXTURES_DIR + "fixtures/file1.json";
-        String filePath2 = FIXTURES_DIR + "fixtures/file2.json";
+        String filePath1 = FIXTURES_DIR + "file1.json";
+        String filePath2 = FIXTURES_DIR + "file2.json";
 
-        String expected = Files.readString(Paths.get(FIXTURES_DIR + "fixtures/expected_plain_flat.txt")).trim();
+        String expected = Files.readString(Paths.get(FIXTURES_DIR + "expected_plain_flat.txt")).trim();
         String actual = Differ.generate(filePath1, filePath2, "plain");
 
         assertEquals(expected, actual, "Plain flat diff is incorrect");
@@ -34,8 +34,8 @@ public class DifferTest {
 
     @Test
     public void testGenerateJsonFlat() throws Exception {
-        String filePath1 = FIXTURES_DIR + "fixtures/file1.json";
-        String filePath2 = FIXTURES_DIR + "fixtures/file2.json";
+        String filePath1 = FIXTURES_DIR + "file1.json";
+        String filePath2 = FIXTURES_DIR + "file2.json";
 
         String actual = Differ.generate(filePath1, filePath2, "json");
 
@@ -45,10 +45,10 @@ public class DifferTest {
 
     @Test
     public void testGenerateStylishNested() throws Exception {
-        String filePath1 = FIXTURES_DIR + "fixtures/nested1.json";
-        String filePath2 = FIXTURES_DIR + "fixtures/nested2.json";
+        String filePath1 = FIXTURES_DIR + "nested1.json";
+        String filePath2 = FIXTURES_DIR + "nested2.json";
 
-        String expected = Files.readString(Paths.get(FIXTURES_DIR + "fixtures/expected_stylish_nested.txt")).trim();
+        String expected = Files.readString(Paths.get(FIXTURES_DIR + "expected_stylish_nested.txt")).trim();
         String actual = Differ.generate(filePath1, filePath2, "stylish");
 
         assertEquals(expected, actual, "Stylish nested diff is incorrect");
@@ -56,10 +56,10 @@ public class DifferTest {
 
     @Test
     public void testGeneratePlainNested() throws Exception {
-        String filePath1 = FIXTURES_DIR + "fixtures/nested1.json";
-        String filePath2 = FIXTURES_DIR + "fixtures/nested2.json";
+        String filePath1 = FIXTURES_DIR + "nested1.json";
+        String filePath2 = FIXTURES_DIR + "nested2.json";
 
-        String expected = Files.readString(Paths.get(FIXTURES_DIR + "fixtures/expected_plain_nested.txt")).trim();
+        String expected = Files.readString(Paths.get(FIXTURES_DIR + "expected_plain_nested.txt")).trim();
         String actual = Differ.generate(filePath1, filePath2, "plain");
 
         assertEquals(expected, actual, "Plain nested diff is incorrect");
