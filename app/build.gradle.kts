@@ -87,10 +87,6 @@ sonar {
         property("sonar.projectKey", "TechWizard-SS_java-project-71")
         property("sonar.organization", "techwizard-ss")
         property("sonar.host.url", "https://sonarcloud.io")
-        //property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
+        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
     }
-}
-
-jacoco {
-    reportsDirectory = layout.buildDirectory.dir("customJacocoReportDir")
 }
