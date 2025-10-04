@@ -13,8 +13,8 @@ public class Plain {
     private static String format(List<DiffNode> nodes, String parentKey) {
         return nodes.stream()
                 .map(node -> formatNode(node, parentKey)) // передаём родительский ключ в formatNode
-                .filter(s -> !s.isEmpty())
-                .collect(Collectors.joining("\r\n"));
+                .filter(s -> !s.isEmpty())                        // Измени на System.lineSeparator()
+                .collect(Collectors.joining(System.lineSeparator()));   // (кросс-платформенный \r\n или \n)
     }
 
     // Изменённый метод, принимающий родительский ключ
