@@ -37,9 +37,11 @@ jobs:
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run:
+        run: |
           cd app
           ./gradlew build sonar --info
+
+
 
       - name: SonarQube Quality Gate check  # Новый шаг: проверит gate (coverage, bugs)
         uses: sonarsource/sonarqube-quality-gate-action@master
