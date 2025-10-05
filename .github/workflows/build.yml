@@ -1,4 +1,4 @@
-name: SonarQube Analysis  # Более точное имя
+name: SonarQube Analysis
 
 on:
   push:
@@ -41,8 +41,6 @@ jobs:
           cd app
           chmod +x ./gradlew  # CI сделает gradlew исполняемым
           ./gradlew build sonar --info
-
-
 
       - name: SonarQube Quality Gate check  # Новый шаг: проверит gate (coverage, bugs)
         uses: sonarsource/sonarqube-quality-gate-action@master
