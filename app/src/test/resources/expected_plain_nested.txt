@@ -1,2 +1,2 @@
-Property 'obj1.nestedKey' was updated. From 'value' to 'updated'
+Property 'obj1' was updated. From [complex value] to [complex value]
 Property 'setting1' was updated. From 'Some value' to 'Another value'

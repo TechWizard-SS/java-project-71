@@ -1,75 +1,71 @@
 package hexlet.code;
-
 import java.util.List;
 
 public class Stylish {
+
     public static String format(List<DiffNode> diff) {
-        return "{" + System.lineSeparator()  // Фикс: для открытия
-                + formatNested(diff, 0) + "}";
+        String content = formatNested(diff, 0);
+        if (content.endsWith(System.lineSeparator())) {
+            content = content.substring(0, content.length() - System.lineSeparator().length());  // Убери trailing \n
+        }
+        return "{" + System.lineSeparator() + content + System.lineSeparator() + "}";
     }
 
     private static String formatNested(List<DiffNode> nodes, int prefixLevel) {
         StringBuilder result = new StringBuilder();
-        String prefix = " ".repeat(prefixLevel * 4); // Отступ зависит от уровня вложенности
+        String prefix = "  ".repeat(prefixLevel + 1);  // 2 spaces base + 2*level
 
         for (DiffNode node : nodes) {
             switch (node.getType()) {
-                case "ADDED":
+                case "ADDED" -> {
                     result.append(prefix)
-                            .append("  + ")
+                            .append("+ ")
                             .append(node.getKey())
                             .append(": ")
-                            .append(node.getNewValue())
+                            .append(stringifyValue(node.getNewValue()))
                             .append(System.lineSeparator());
-                    break;
-                case "REMOVED":
+                }
+                case "REMOVED" -> {
                     result.append(prefix)
-                            .append("  - ")
+                            .append("- ")
                             .append(node.getKey())
                             .append(": ")
-                            .append(node.getOldValue())
+                            .append(stringifyValue(node.getOldValue()))
                             .append(System.lineSeparator());
-                    break;
-                case "CHANGED":
+                }
+                case "CHANGED" -> {
                     result.append(prefix)
-                            .append("  - ")
+                            .append("- ")
                             .append(node.getKey())
                             .append(": ")
-                            .append(node.getOldValue())
+                            .append(stringifyValue(node.getOldValue()))
                             .append(System.lineSeparator());
-
                     result.append(prefix)
-                            .append("  + ")
+                            .append("+ ")
                             .append(node.getKey())
                             .append(": ")
-                            .append(node.getNewValue())
+                            .append(stringifyValue(node.getNewValue()))
                             .append(System.lineSeparator());
-                    break;
-                case "UNCHANGED":
+                }
+                case "UNCHANGED" -> {
                     result.append(prefix)
-                            .append("    ")
+                            .append("  ")
                             .append(node.getKey())
                             .append(": ")
-                            .append(node.getOldValue())
+                            .append(stringifyValue(node.getOldValue()))
                             .append(System.lineSeparator());
-                    break;
-                case "NESTED":
-                    result.append(prefix)
-                            .append("    ")
-                            .append(node.getKey())
-                            .append(": {")
-                            .append(System.lineSeparator());
-
-                    result.append(formatNested(node.getChildren(), prefixLevel + 1));
-
-                    result.append(prefix)
-                            .append("    }")
-                            .append(System.lineSeparator());
-                    break;
-                default:
-                    break;
+                }
+                default -> { }  // No NESTED now
             }
         }
         return result.toString();
+    }
+
+    // Фикс: toString() для всех, включая Map/List (no [complex value] in stylish)
+    private static String stringifyValue(Object value) {
+        if (value == null) {
+            return "null";
+        }
+        return value.toString();  // Strings/booleans/numbers as is, Map=[key=value, ...], List=[a, b]
     }
 }

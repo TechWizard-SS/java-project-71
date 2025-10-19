@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Plain {
+
     public static String format(List<DiffNode> diff) {
         return format(diff, ""); // вызываем вспомогательный метод с пустым родительским ключом
     }
@@ -37,10 +38,10 @@ public class Plain {
         if (value == null) {
             return "null";
         }
-        if (value instanceof String || value instanceof Boolean) {
+        if (value instanceof String) {
             return "'" + value + "'";
         }
-        if (value instanceof Map || value instanceof java.util.List) {
+        if (value instanceof Map || value instanceof List) {
             return "[complex value]";
         }
         return value.toString();

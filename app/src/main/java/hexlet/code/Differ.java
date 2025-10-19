@@ -1,54 +1,58 @@
 package hexlet.code;
 
-
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Differ {
     public static String generate(String filePath1, String filePath2, String format) throws Exception {
-        Parser parser1 = new Parser();
-        Parser parser2 = new Parser();
+        String content1 = Files.readString(Paths.get(filePath1).toAbsolutePath().normalize());
+        String content2 = Files.readString(Paths.get(filePath2).toAbsolutePath().normalize());
 
-        parser1.parseFile(filePath1);
-        parser2.parseFile(filePath2);
+        String ext1 = getFileExtension(filePath1);
+        String ext2 = getFileExtension(filePath2);
 
-        List<DiffNode> diff = buildDiff(parser1.getData(), parser2.getData());
-        return Formatter.format(diff, format); // делегируем выбор форматера
+        Map<String, Object> data1 = Parser.parse(content1, ext1);
+        Map<String, Object> data2 = Parser.parse(content2, ext2);
+
+        List<DiffNode> diff = buildDiff(data1, data2);
+        return Formatter.format(diff, format);
     }
 
-    private static List<DiffNode> buildDiff(Map<String, Object> data1, Map<String, Object> data2) {
-        List<DiffNode> resultDiff = new ArrayList<>();
+    private static String getFileExtension(String filePath) {
+        return filePath.substring(filePath.lastIndexOf(".") + 1).toLowerCase();
+    }
 
-        // Сначала обходим все ключи из первого файла
-        for (String key : data1.keySet()) {
-            Object value1 = data1.get(key);
-            Object value2 = data2.get(key);
+    public static List<DiffNode> buildDiff(Map<String, Object> map1, Map<String, Object> map2) {
+        Set<String> allKeys = new TreeSet<>(Comparator.naturalOrder());
+        allKeys.addAll(map1.keySet());
+        allKeys.addAll(map2.keySet());
 
-            if (value2 == null) {
-                resultDiff.add(new DiffNode(key, value1, null, "REMOVED"));
-            } else if (value1.equals(value2)) {
-                resultDiff.add(new DiffNode(key, value1, value2, "UNCHANGED"));
-            } else if (value1 instanceof Map && value2 instanceof Map) {
-                @SuppressWarnings("unchecked")
-                List<DiffNode> children = buildDiff(
-                        (Map<String, Object>) value1,
-                        (Map<String, Object>) value2
-                );
-                resultDiff.add(new DiffNode(key, "NESTED", children));
+        List<DiffNode> result = new ArrayList<>();
+
+        for (String key : allKeys) {
+            boolean inMap1 = map1.containsKey(key);
+            boolean inMap2 = map2.containsKey(key);
+            Object value1 = inMap1 ? map1.get(key) : null;
+            Object value2 = inMap2 ? map2.get(key) : null;
+
+            if (!inMap1) {
+                result.add(new DiffNode(key, null, value2, "ADDED"));
+            } else if (!inMap2) {
+                result.add(new DiffNode(key, value1, null, "REMOVED"));
+            } else if (Objects.equals(value1, value2)) {
+                result.add(new DiffNode(key, value1, value2, "UNCHANGED"));
             } else {
-                resultDiff.add(new DiffNode(key, value1, value2, "CHANGED"));
+                result.add(new DiffNode(key, value1, value2, "CHANGED"));
             }
         }
 
-        // Затем добавляем новые ключи из второго файла
-        for (String key : data2.keySet()) {
-            if (!data1.containsKey(key)) {
-                resultDiff.add(new DiffNode(key, null, data2.get(key), "ADDED"));
-            }
-        }
-        resultDiff.sort(Comparator.comparing(DiffNode::getKey));
-        return resultDiff;
+        return result;
     }
 }

@@ -1,9 +1,0 @@
-{
-    obj1: {
-        isNested: true
-      - nestedKey: value
-      + nestedKey: updated
-    }
-  - setting1: Some value
-  + setting1: Another value
-}
