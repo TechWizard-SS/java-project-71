@@ -1,4 +1,6 @@
-package hexlet.code;
+package hexlet.code.formatters;
+
+import hexlet.code.DiffNode;
 
 import java.util.Map;
 import java.util.List;
@@ -29,8 +31,8 @@ public class Plain {
             case "REMOVED" -> String.format("Property '%s' was removed", currentKey);
             case "CHANGED" -> String.format("Property '%s' was updated. From %s to %s",
                     currentKey, formatValue(node.getOldValue()), formatValue(node.getNewValue()));
-            case "NESTED" -> format(node.getChildren(), currentKey); // передаём текущий ключ как родительский для влож
-            default -> ""; // UNCHANGED — не выводим
+            case "UNCHANGED" -> ""; // Не выводим
+            default -> throw new RuntimeException("Unknown node type: '" + node.getType() + "'");
         };
     }
 

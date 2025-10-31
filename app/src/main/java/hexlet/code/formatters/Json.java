@@ -1,6 +1,8 @@
-package hexlet.code;
+package hexlet.code.formatters;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hexlet.code.DiffNode;
+
 import java.util.List;
 
 public class Json {

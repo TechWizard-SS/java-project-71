@@ -1,0 +1,4 @@
+setting1: Some value
+obj1:
+  nestedKey: value
+  isNested: true

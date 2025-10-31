@@ -1,4 +1,6 @@
-package hexlet.code;
+package hexlet.code.formatters;
+import hexlet.code.DiffNode;
+
 import java.util.List;
 
 public class Stylish {
@@ -55,7 +57,7 @@ public class Stylish {
                             .append(stringifyValue(node.getOldValue()))
                             .append(System.lineSeparator());
                 }
-                default -> { }  // No NESTED now
+                default -> throw new RuntimeException("Unknown type: '" + node.getType() + "'");
             }
         }
         return result.toString();
