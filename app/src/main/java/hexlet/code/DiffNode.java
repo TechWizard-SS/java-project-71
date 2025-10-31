@@ -7,15 +7,14 @@ public final class DiffNode {
     private final Object oldValue;
     private final Object newValue;
     private final String type;
-    private final List<DiffNode> children;  // Final для consistency
+    private final List<DiffNode> children;
 
-    // Конструкторы и getters без изменений
     public DiffNode(String key, Object oldValue, Object newValue, String type) {
         this.key = key;
         this.oldValue = oldValue;
         this.newValue = newValue;
         this.type = type;
-        this.children = null;  // Для leaf
+        this.children = null;
     }
 
     public DiffNode(String key, String type, List<DiffNode> children) {
@@ -26,7 +25,6 @@ public final class DiffNode {
         this.newValue = null;
     }
 
-    // Getters без изменений
     public String getKey() {
         return key;
     }

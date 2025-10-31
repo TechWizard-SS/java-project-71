@@ -32,7 +32,6 @@ public class DiffBuilder {
                 result.add(new DiffNode(key, value1, value2, "CHANGED"));
             }
         }
-
         return result;
     }
 }
