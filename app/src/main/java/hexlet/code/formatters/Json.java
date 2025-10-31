@@ -5,7 +5,10 @@ import hexlet.code.DiffNode;
 
 import java.util.List;
 
-public class Json {
+public final class Json {
+    private Json() {
+    }
+
     public static String format(List<DiffNode> diff) {
         try {
             ObjectMapper mapper = new ObjectMapper();

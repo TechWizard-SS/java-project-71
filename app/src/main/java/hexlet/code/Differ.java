@@ -5,7 +5,10 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
-public class Differ {
+public final class Differ {
+    private Differ() {
+    }
+
     public static String generate(String filePath1, String filePath2, String format) throws Exception {
         String content1 = Files.readString(Paths.get(filePath1).toAbsolutePath().normalize());
         String content2 = Files.readString(Paths.get(filePath2).toAbsolutePath().normalize());

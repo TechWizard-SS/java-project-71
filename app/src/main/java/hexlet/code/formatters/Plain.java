@@ -6,7 +6,10 @@ import java.util.Map;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Plain {
+public final class Plain {
+
+    private Plain() {
+    }
 
     public static String format(List<DiffNode> diff) {
         return format(diff, ""); // вызываем вспомогательный метод с пустым родительским ключом

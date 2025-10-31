@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Objects;
 
-public class DiffBuilder {
+public final class DiffBuilder {
+    private DiffBuilder() {
+    }
+
     public static List<DiffNode> build(Map<String, Object> map1, Map<String, Object> map2) {
         Set<String> allKeys = new TreeSet<>(Comparator.naturalOrder());
         allKeys.addAll(map1.keySet());

@@ -6,7 +6,9 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import java.util.Map;
 import java.util.LinkedHashMap;
 
-public class Parser {
+public final class Parser {
+    private Parser() {
+    }
     public static Map<String, Object> parse(String content, String format) throws Exception {
         return switch (format.toLowerCase()) {
             case "json" -> new ObjectMapper().readValue(content, new TypeReference<LinkedHashMap<String, Object>>() {

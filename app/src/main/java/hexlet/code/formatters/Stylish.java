@@ -3,7 +3,10 @@ import hexlet.code.DiffNode;
 
 import java.util.List;
 
-public class Stylish {
+public final class Stylish {
+
+    private Stylish() {
+    }
 
     public static String format(List<DiffNode> diff) {
         String content = formatNested(diff, 0);

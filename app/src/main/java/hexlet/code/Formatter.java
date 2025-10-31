@@ -6,7 +6,9 @@ import hexlet.code.formatters.Stylish;
 
 import java.util.List;
 
-public class Formatter {
+public final class Formatter {
+    private Formatter() {
+    }
     public static String format(List<DiffNode> diff, String formatName) {
         return switch (formatName.toLowerCase()) {
             case "stylish" -> Stylish.format(diff);
