@@ -9,7 +9,7 @@ import java.util.List;
 public final class Formatter {
     private Formatter() {
     }
-    public static String format(List<DiffNode> diff, String formatName) {
+    public static String format(List<DiffNode> diff, String formatName) throws Exception {
         return switch (formatName.toLowerCase()) {
             case "stylish" -> Stylish.format(diff);
             case "plain" -> Plain.format(diff);

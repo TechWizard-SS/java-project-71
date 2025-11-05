@@ -1,1 +1,1 @@
-[{"key":"obj1","oldValue":{"isNested":true,"nestedKey":"value"},"newValue":{"isNested":true,"nestedKey":"updated"},"type":"CHANGED","children":null},{"key":"setting1","oldValue":"Some value","newValue":"Another value","type":"CHANGED","children":null}]
+[{"key":"obj1","oldValue":{"nestedKey":"value","isNested":true},"newValue":{"nestedKey":"updated","isNested":true},"type":"CHANGED","children":null},{"key":"setting1","oldValue":"Some value","newValue":"Another value","type":"CHANGED","children":null}]

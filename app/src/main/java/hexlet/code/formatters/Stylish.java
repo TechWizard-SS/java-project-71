@@ -66,11 +66,10 @@ public final class Stylish {
         return result.toString();
     }
 
-    // Фикс: toString() для всех, включая Map/List (no [complex value] in stylish)
     private static String stringifyValue(Object value) {
         if (value == null) {
             return "null";
         }
-        return value.toString();  // Strings/booleans/numbers as is, Map=[key=value, ...], List=[a, b]
+        return value.toString();
     }
 }

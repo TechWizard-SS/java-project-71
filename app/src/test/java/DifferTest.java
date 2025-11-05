@@ -2,174 +2,180 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import hexlet.code.Differ;
 import org.junit.jupiter.api.Test;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 
 public class DifferTest {
 
-    @Test
-    public void testGenerateStylishFlatJson() throws Exception {
-        Path temp1 = createTempFile("/file1.json");
-        Path temp2 = createTempFile("/file2.json");
-
-        try {
-            String expected = new String(
-                    getClass().getResourceAsStream("/expected_stylish_flat.txt").readAllBytes(),
-                    StandardCharsets.UTF_8
-            );
-            String actual = Differ.generate(temp1.toString(), temp2.toString(), "stylish");
-
-            assertEquals(expected, actual, "Stylish flat diff json is incorrect");
-        } finally {
-            Files.deleteIfExists(temp1);
-            Files.deleteIfExists(temp2);
-        }
+    private String readResource(String name) throws Exception {
+        return new String(
+                Objects.requireNonNull(getClass().getResourceAsStream(name)).readAllBytes(),
+                StandardCharsets.UTF_8
+        ).trim();
     }
 
+    // --- FLAT JSON ---
+
     @Test
-    public void testGeneratePlainFlatJson() throws Exception {
-        Path temp1 = createTempFile("/file1.json");
-        Path temp2 = createTempFile("/file2.json");
+    public void testStylishFlatJson() throws Exception {
+        Path file1 = Path.of(getClass().getResource("/file1.json").toURI());
+        Path file2 = Path.of(getClass().getResource("/file2.json").toURI());
 
-        try {
-            String expected = new String(
-                    getClass().getResourceAsStream("/expected_plain_flat.txt").readAllBytes(),
-                    StandardCharsets.UTF_8
-            );
-            String actual = Differ.generate(temp1.toString(), temp2.toString(), "plain");
+        String expected = readResource("/expected_stylish_flat.txt");
+        String actual = Differ.generate(file1.toString(), file2.toString(), "stylish");
 
-            assertEquals(expected, actual, "Plain flat diff json is incorrect");
-        } finally {
-            Files.deleteIfExists(temp1);
-            Files.deleteIfExists(temp2);
-        }
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void testGenerateJsonFlatJson() throws Exception {
-        Path temp1 = createTempFile("/file1.json");
-        Path temp2 = createTempFile("/file2.json");
+    public void testPlainFlatJson() throws Exception {
+        Path file1 = Path.of(getClass().getResource("/file1.json").toURI());
+        Path file2 = Path.of(getClass().getResource("/file2.json").toURI());
 
-        try {
-            String expected = new String(
-                    getClass().getResourceAsStream("/expected_json_flat.txt").readAllBytes(),
-                    StandardCharsets.UTF_8
-            );
-            String actual = Differ.generate(temp1.toString(), temp2.toString(), "json");
+        String expected = readResource("/expected_plain_flat.txt");
+        String actual = Differ.generate(file1.toString(), file2.toString(), "plain");
 
-            assertEquals(expected, actual, "Json flat diff json is incorrect");
-        } finally {
-            Files.deleteIfExists(temp1);
-            Files.deleteIfExists(temp2);
-        }
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void testGenerateDefaultFlatJson() throws Exception {
-        Path temp1 = createTempFile("/file1.json");
-        Path temp2 = createTempFile("/file2.json");
+    public void testJsonFlatJson() throws Exception {
+        Path file1 = Path.of(getClass().getResource("/file1.json").toURI());
+        Path file2 = Path.of(getClass().getResource("/file2.json").toURI());
 
-        try {
-            String expected = new String(
-                    getClass().getResourceAsStream("/expected_stylish_flat.txt").readAllBytes(),
-                    StandardCharsets.UTF_8
-            );
-            String actual = Differ.generate(temp1.toString(), temp2.toString());  // 2-arg
+        String expected = readResource("/expected_json_flat.txt");
+        String actual = Differ.generate(file1.toString(), file2.toString(), "json");
 
-            assertEquals(expected, actual, "Default flat diff json is incorrect");
-        } finally {
-            Files.deleteIfExists(temp1);
-            Files.deleteIfExists(temp2);
-        }
+        assertEquals(expected, actual);
+    }
+
+    // --- FLAT YAML ---
+
+    @Test
+    public void testStylishFlatYaml() throws Exception {
+        Path file1 = Path.of(getClass().getResource("/file1.yml").toURI());
+        Path file2 = Path.of(getClass().getResource("/file2.yml").toURI());
+
+        String expected = readResource("/expected_stylish_flat.txt");
+        String actual = Differ.generate(file1.toString(), file2.toString(), "stylish");
+
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void testGenerateStylishFlatYml() throws Exception {
-        Path temp1 = createTempFile("/file1.yml");
-        Path temp2 = createTempFile("/file2.yml");
+    public void testPlainFlatYaml() throws Exception {
+        Path file1 = Path.of(getClass().getResource("/file1.yml").toURI());
+        Path file2 = Path.of(getClass().getResource("/file2.yml").toURI());
 
-        try {
-            String expected = new String(
-                    getClass().getResourceAsStream("/expected_stylish_flat.txt").readAllBytes(),
-                    StandardCharsets.UTF_8
-            );
-            String actual = Differ.generate(temp1.toString(), temp2.toString(), "stylish");
+        String expected = readResource("/expected_plain_flat.txt");
+        String actual = Differ.generate(file1.toString(), file2.toString(), "plain");
 
-            assertEquals(expected, actual, "Stylish flat diff yml is incorrect");
-        } finally {
-            Files.deleteIfExists(temp1);
-            Files.deleteIfExists(temp2);
-        }
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void testGeneratePlainFlatYml() throws Exception {
-        Path temp1 = createTempFile("/file1.yml");
-        Path temp2 = createTempFile("/file2.yml");
+    public void testJsonFlatYaml() throws Exception {
+        Path file1 = Path.of(getClass().getResource("/file1.yml").toURI());
+        Path file2 = Path.of(getClass().getResource("/file2.yml").toURI());
 
-        try {
-            String expected = new String(
-                    getClass().getResourceAsStream("/expected_plain_flat.txt").readAllBytes(),
-                    StandardCharsets.UTF_8
-            );
-            String actual = Differ.generate(temp1.toString(), temp2.toString(), "plain");
+        String expected = readResource("/expected_json_flat.txt");
+        String actual = Differ.generate(file1.toString(), file2.toString(), "json");
 
-            assertEquals(expected, actual, "Plain flat diff yml is incorrect");
-        } finally {
-            Files.deleteIfExists(temp1);
-            Files.deleteIfExists(temp2);
-        }
+        assertEquals(expected, actual);
+    }
+
+    // --- NESTED JSON ---
+
+    @Test
+    public void testStylishNestedJson() throws Exception {
+        Path file1 = Path.of(getClass().getResource("/nested1.json").toURI());
+        Path file2 = Path.of(getClass().getResource("/nested2.json").toURI());
+
+        String expected = readResource("/expected_stylish_nested.txt");
+        String actual = Differ.generate(file1.toString(), file2.toString(), "stylish");
+
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void testGenerateJsonFlatYml() throws Exception {
-        Path temp1 = createTempFile("/file1.yml");
-        Path temp2 = createTempFile("/file2.yml");
+    public void testPlainNestedJson() throws Exception {
+        Path file1 = Path.of(getClass().getResource("/nested1.json").toURI());
+        Path file2 = Path.of(getClass().getResource("/nested2.json").toURI());
 
-        try {
-            String expected = new String(
-                    getClass().getResourceAsStream("/expected_json_flat.txt").readAllBytes(),
-                    StandardCharsets.UTF_8
-            );
-            String actual = Differ.generate(temp1.toString(), temp2.toString(), "json");
+        String expected = readResource("/expected_plain_nested.txt");
+        String actual = Differ.generate(file1.toString(), file2.toString(), "plain");
 
-            assertEquals(expected, actual, "Json flat diff yml is incorrect");
-        } finally {
-            Files.deleteIfExists(temp1);
-            Files.deleteIfExists(temp2);
-        }
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void testGenerateDefaultFlatYml() throws Exception {
-        Path temp1 = createTempFile("/file1.yml");
-        Path temp2 = createTempFile("/file2.yml");
+    public void testJsonNestedJson() throws Exception {
+        Path file1 = Path.of(getClass().getResource("/nested1.json").toURI());
+        Path file2 = Path.of(getClass().getResource("/nested2.json").toURI());
 
-        try {
-            String expected = new String(
-                    getClass().getResourceAsStream("/expected_stylish_flat.txt").readAllBytes(),
-                    StandardCharsets.UTF_8
-            );
-            String actual = Differ.generate(temp1.toString(), temp2.toString());
+        String expected = readResource("/expected_json_nested.txt");
+        String actual = Differ.generate(file1.toString(), file2.toString(), "json");
 
-            assertEquals(expected, actual, "Default flat diff yml is incorrect");
-        } finally {
-            Files.deleteIfExists(temp1);
-            Files.deleteIfExists(temp2);
-        }
+        assertEquals(expected, actual);
     }
 
-    // Helper для temp файлов из classpath (надёжно в CI)
-    private Path createTempFile(String resourcePath) throws IOException {
-        Path tempFile = Files.createTempFile("test", getExtension(resourcePath));
-        byte[] content = getClass().getResourceAsStream(resourcePath).readAllBytes();
-        Files.write(tempFile, content);  // Убрал StandardCharsets.UTF_8 — для byte[] не нужен
-        return tempFile;
+    // --- NESTED YAML ---
+
+    @Test
+    public void testStylishNestedYaml() throws Exception {
+        Path file1 = Path.of(getClass().getResource("/nested1.yml").toURI());
+        Path file2 = Path.of(getClass().getResource("/nested2.yml").toURI());
+
+        String expected = readResource("/expected_stylish_nested.txt");
+        String actual = Differ.generate(file1.toString(), file2.toString(), "stylish");
+
+        assertEquals(expected, actual);
     }
 
-    private String getExtension(String resourcePath) {
-        return resourcePath.substring(resourcePath.lastIndexOf("."));
+    @Test
+    public void testPlainNestedYaml() throws Exception {
+        Path file1 = Path.of(getClass().getResource("/nested1.yml").toURI());
+        Path file2 = Path.of(getClass().getResource("/nested2.yml").toURI());
+
+        String expected = readResource("/expected_plain_nested.txt");
+        String actual = Differ.generate(file1.toString(), file2.toString(), "plain");
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testJsonNestedYaml() throws Exception {
+        Path file1 = Path.of(getClass().getResource("/nested1.yml").toURI());
+        Path file2 = Path.of(getClass().getResource("/nested2.yml").toURI());
+
+        String expected = readResource("/expected_json_nested.txt");
+        String actual = Differ.generate(file1.toString(), file2.toString(), "json");
+
+        assertEquals(expected, actual);
+    }
+
+    // --- DEFAULT ---
+
+    @Test
+    public void testDefaultJson() throws Exception {
+        Path file1 = Path.of(getClass().getResource("/nested1.json").toURI());
+        Path file2 = Path.of(getClass().getResource("/nested2.json").toURI());
+
+        String expected = readResource("/expected_stylish_nested.txt"); // формат по умолчанию — stylish
+        String actual = Differ.generate(file1.toString(), file2.toString());
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testDefaultYaml() throws Exception {
+        Path file1 = Path.of(getClass().getResource("/nested1.yml").toURI());
+        Path file2 = Path.of(getClass().getResource("/nested2.yml").toURI());
+
+        String expected = readResource("/expected_stylish_nested.txt");
+        String actual = Differ.generate(file1.toString(), file2.toString());
+
+        assertEquals(expected, actual);
     }
 }
