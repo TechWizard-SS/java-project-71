@@ -15,13 +15,13 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=TechWizard-SS_java-project-71&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=TechWizard-SS_java-project-71)
 
 
-#  Differ — Сравнение конфигурационных файлов
+# Differ — Сравнение конфигурационных файлов
 
 **Differ** — консольное приложение на Java, предназначенное для сравнения двух конфигурационных файлов (`.json`, `.yml`) и отображения различий в удобном формате.
 
 ---
 
-##  Возможности
+## Возможности
 
 - Поддержка форматов входных файлов: **JSON**, **YAML**
 - Форматы вывода результата:
@@ -34,29 +34,43 @@
 
 ---
 
-##  Установка и запуск
+## Установка и запуск
 
-# 1. Клонируйте репозиторий
+1. **Клонируйте репозиторий**
+   ```
+   git clone https://github.com/TechWizard-SS/java-project-71.git
+   cd java-project-71
+   ```
 
-git clone https://github.com/TechWizard-SS/java-project-71.git
-cd java-project-71
-# 2. Сборка проекта
-make build
-# 3. Запуск приложения
-make run-dist
+2. **Сборка проекта**
+   ```
+   make build
+   ```
 
-# 4. Примеры использования
+3. **Запуск приложения**
+   ```
+   make run-dist
+   ```
 
-## Сравнение JSON-файлов с выводом в стиле "stylish"
-.app/build/install/app/bin/app src/main/resources/file11.json src/main/resources/file22.json --format stylish
+4. **Примеры использования**
 
-## Сравнение YAML-файлов с выводом в стиле "plain"
-.app/build/install/app/bin/app src/main/resources/file11.json src/main/resources/file22.json --format plain
+   ### Сравнение JSON-файлов с выводом в стиле "stylish"
+   ```
+   .app/build/install/app/bin/app src/main/resources/file1.json src/main/resources/file2.json --format stylish
+   ```
 
-## Формат по умолчанию (stylish)
-.app/build/install/app/bin/app src/main/resources/file11.json src/main/resources/file22.json
+   ### Сравнение YAML-файлов с выводом в стиле "plain"
+   ```
+   .app/build/install/app/bin/app src/main/resources/file1.yml src/main/resources/file2.yml --format plain
+   ```
 
-## Скрин запусков на тестовых файлах
+   ### Формат по умолчанию (stylish)
+   ```
+   .app/build/install/app/bin/app src/main/resources/file1.json src/main/resources/file2.json
+   ```
+
+## Скриншоты запусков на тестовых файлах
+
 
 <img width="875" height="576" alt="image" src="https://github.com/user-attachments/assets/a7608ff8-a809-4b00-9e54-748a8503a504" />
 
