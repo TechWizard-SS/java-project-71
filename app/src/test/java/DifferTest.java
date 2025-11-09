@@ -2,18 +2,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import hexlet.code.Differ;
 import org.junit.jupiter.api.Test;
-import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
 
 public class DifferTest {
-
-    private String readResource(String name) throws Exception {
-        return new String(
-                Objects.requireNonNull(getClass().getResourceAsStream(name)).readAllBytes(),
-                StandardCharsets.UTF_8
-        ).trim();
-    }
 
     // --- FLAT JSON ---
 
@@ -21,9 +14,10 @@ public class DifferTest {
     public void testStylishFlatJson() throws Exception {
         Path file1 = Path.of(Objects.requireNonNull(getClass().getResource("/file1.json")).toURI());
         Path file2 = Path.of(Objects.requireNonNull(getClass().getResource("/file2.json")).toURI());
+        Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_stylish_flat.txt")).toURI());
 
-        String expected = readResource("/expected_stylish_flat.txt");
-        String actual = Differ.generate(file1.toString(), file2.toString(), "stylish");
+        String expected = Files.readString(file3);
+        String actual = Differ.generate("stylish", file1.toString(), file2.toString());
 
         assertEquals(expected, actual);
     }
@@ -32,9 +26,10 @@ public class DifferTest {
     public void testPlainFlatJson() throws Exception {
         Path file1 = Path.of(Objects.requireNonNull(getClass().getResource("/file1.json")).toURI());
         Path file2 = Path.of(Objects.requireNonNull(getClass().getResource("/file2.json")).toURI());
+        Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_plain_flat.txt")).toURI());
 
-        String expected = readResource("/expected_plain_flat.txt");
-        String actual = Differ.generate(file1.toString(), file2.toString(), "plain");
+        String expected = Files.readString(file3);
+        String actual = Differ.generate("plain", file1.toString(), file2.toString());
 
         assertEquals(expected, actual);
     }
@@ -43,9 +38,10 @@ public class DifferTest {
     public void testJsonFlatJson() throws Exception {
         Path file1 = Path.of(Objects.requireNonNull(getClass().getResource("/file1.json")).toURI());
         Path file2 = Path.of(Objects.requireNonNull(getClass().getResource("/file2.json")).toURI());
+        Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_json_flat.txt")).toURI());
 
-        String expected = readResource("/expected_json_flat.txt");
-        String actual = Differ.generate(file1.toString(), file2.toString(), "json");
+        String expected = Files.readString(file3);
+        String actual = Differ.generate("json", file1.toString(), file2.toString());
 
         assertEquals(expected, actual);
     }
@@ -56,9 +52,10 @@ public class DifferTest {
     public void testStylishFlatYaml() throws Exception {
         Path file1 = Path.of(Objects.requireNonNull(getClass().getResource("/file1.yml")).toURI());
         Path file2 = Path.of(Objects.requireNonNull(getClass().getResource("/file2.yml")).toURI());
+        Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_stylish_flat.txt")).toURI());
 
-        String expected = readResource("/expected_stylish_flat.txt");
-        String actual = Differ.generate(file1.toString(), file2.toString(), "stylish");
+        String expected = Files.readString(file3);
+        String actual = Differ.generate(file1.toString(), file2.toString());
 
         assertEquals(expected, actual);
     }
@@ -67,9 +64,10 @@ public class DifferTest {
     public void testPlainFlatYaml() throws Exception {
         Path file1 = Path.of(Objects.requireNonNull(getClass().getResource("/file1.yml")).toURI());
         Path file2 = Path.of(Objects.requireNonNull(getClass().getResource("/file2.yml")).toURI());
+        Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_plain_flat.txt")).toURI());
 
-        String expected = readResource("/expected_plain_flat.txt");
-        String actual = Differ.generate(file1.toString(), file2.toString(), "plain");
+        String expected = Files.readString(file3);
+        String actual = Differ.generate("plain", file1.toString(), file2.toString());
 
         assertEquals(expected, actual);
     }
@@ -78,9 +76,10 @@ public class DifferTest {
     public void testJsonFlatYaml() throws Exception {
         Path file1 = Path.of(Objects.requireNonNull(getClass().getResource("/file1.yml")).toURI());
         Path file2 = Path.of(Objects.requireNonNull(getClass().getResource("/file2.yml")).toURI());
+        Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_json_flat.txt")).toURI());
 
-        String expected = readResource("/expected_json_flat.txt");
-        String actual = Differ.generate(file1.toString(), file2.toString(), "json");
+        String expected = Files.readString(file3);
+        String actual = Differ.generate("json", file1.toString(), file2.toString());
 
         assertEquals(expected, actual);
     }
@@ -91,9 +90,10 @@ public class DifferTest {
     public void testStylishNestedJson() throws Exception {
         Path file1 = Path.of(Objects.requireNonNull(getClass().getResource("/nested1.json")).toURI());
         Path file2 = Path.of(Objects.requireNonNull(getClass().getResource("/nested2.json")).toURI());
+        Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_stylish_nested.txt")).toURI());
 
-        String expected = readResource("/expected_stylish_nested.txt");
-        String actual = Differ.generate(file1.toString(), file2.toString(), "stylish");
+        String expected = Files.readString(file3);
+        String actual = Differ.generate("stylish", file1.toString(), file2.toString());
 
         assertEquals(expected, actual);
     }
@@ -102,9 +102,10 @@ public class DifferTest {
     public void testPlainNestedJson() throws Exception {
         Path file1 = Path.of(Objects.requireNonNull(getClass().getResource("/nested1.json")).toURI());
         Path file2 = Path.of(Objects.requireNonNull(getClass().getResource("/nested2.json")).toURI());
+        Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_plain_nested.txt")).toURI());
 
-        String expected = readResource("/expected_plain_nested.txt");
-        String actual = Differ.generate(file1.toString(), file2.toString(), "plain");
+        String expected = Files.readString(file3);
+        String actual = Differ.generate("plain", file1.toString(), file2.toString());
 
         assertEquals(expected, actual);
     }
@@ -113,9 +114,10 @@ public class DifferTest {
     public void testJsonNestedJson() throws Exception {
         Path file1 = Path.of(Objects.requireNonNull(getClass().getResource("/nested1.json")).toURI());
         Path file2 = Path.of(Objects.requireNonNull(getClass().getResource("/nested2.json")).toURI());
+        Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_json_nested.txt")).toURI());
 
-        String expected = readResource("/expected_json_nested.txt");
-        String actual = Differ.generate(file1.toString(), file2.toString(), "json");
+        String expected = Files.readString(file3);
+        String actual = Differ.generate("json", file1.toString(), file2.toString());
 
         assertEquals(expected, actual);
     }
@@ -126,9 +128,10 @@ public class DifferTest {
     public void testStylishNestedYaml() throws Exception {
         Path file1 = Path.of(Objects.requireNonNull(getClass().getResource("/nested1.yml")).toURI());
         Path file2 = Path.of(Objects.requireNonNull(getClass().getResource("/nested2.yml")).toURI());
+        Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_stylish_nested.txt")).toURI());
 
-        String expected = readResource("/expected_stylish_nested.txt");
-        String actual = Differ.generate(file1.toString(), file2.toString(), "stylish");
+        String expected = Files.readString(file3);
+        String actual = Differ.generate("stylish", file1.toString(), file2.toString());
 
         assertEquals(expected, actual);
     }
@@ -137,9 +140,10 @@ public class DifferTest {
     public void testPlainNestedYaml() throws Exception {
         Path file1 = Path.of(Objects.requireNonNull(getClass().getResource("/nested1.yml")).toURI());
         Path file2 = Path.of(Objects.requireNonNull(getClass().getResource("/nested2.yml")).toURI());
+        Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_plain_nested.txt")).toURI());
 
-        String expected = readResource("/expected_plain_nested.txt");
-        String actual = Differ.generate(file1.toString(), file2.toString(), "plain");
+        String expected = Files.readString(file3);
+        String actual = Differ.generate("plain", file1.toString(), file2.toString());
 
         assertEquals(expected, actual);
     }
@@ -148,9 +152,10 @@ public class DifferTest {
     public void testJsonNestedYaml() throws Exception {
         Path file1 = Path.of(Objects.requireNonNull(getClass().getResource("/nested1.yml")).toURI());
         Path file2 = Path.of(Objects.requireNonNull(getClass().getResource("/nested2.yml")).toURI());
+        Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_json_nested.txt")).toURI());
 
-        String expected = readResource("/expected_json_nested.txt");
-        String actual = Differ.generate(file1.toString(), file2.toString(), "json");
+        String expected = Files.readString(file3);
+        String actual = Differ.generate("json", file1.toString(), file2.toString());
 
         assertEquals(expected, actual);
     }
@@ -161,8 +166,9 @@ public class DifferTest {
     public void testDefaultJson() throws Exception {
         Path file1 = Path.of(Objects.requireNonNull(getClass().getResource("/nested1.json")).toURI());
         Path file2 = Path.of(Objects.requireNonNull(getClass().getResource("/nested2.json")).toURI());
+        Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_stylish_nested.txt")).toURI());
 
-        String expected = readResource("/expected_stylish_nested.txt"); // формат по умолчанию — stylish
+        String expected = Files.readString(file3);
         String actual = Differ.generate(file1.toString(), file2.toString());
 
         assertEquals(expected, actual);
@@ -172,8 +178,9 @@ public class DifferTest {
     public void testDefaultYaml() throws Exception {
         Path file1 = Path.of(Objects.requireNonNull(getClass().getResource("/nested1.yml")).toURI());
         Path file2 = Path.of(Objects.requireNonNull(getClass().getResource("/nested2.yml")).toURI());
+        Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_stylish_nested.txt")).toURI());
 
-        String expected = readResource("/expected_stylish_nested.txt");
+        String expected = Files.readString(file3);
         String actual = Differ.generate(file1.toString(), file2.toString());
 
         assertEquals(expected, actual);
