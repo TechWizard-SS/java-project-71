@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public final class Differ {
+
     private Differ() {
     }
 
@@ -35,5 +36,4 @@ public final class Differ {
     private static String getFileExtension(String filePath) {
         return filePath.substring(filePath.lastIndexOf(".") + 1).toLowerCase();
     }
-
 }

@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.Objects;
 
 public final class DiffBuilder {
+
     private DiffBuilder() {
     }
 
