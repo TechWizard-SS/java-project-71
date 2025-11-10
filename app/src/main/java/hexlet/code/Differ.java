@@ -11,7 +11,7 @@ public final class Differ {
     private Differ() {
     }
 
-    public static String generate(String format, String filePath1, String filePath2) throws Exception {
+    public static String generate(String filePath1, String filePath2, String format) throws Exception {
         Path resourcesDir = Paths.get("src", "main", "resources");
         Path fullPath1 = resourcesDir.resolve(filePath1).toAbsolutePath().normalize();
         Path fullPath2 = resourcesDir.resolve(filePath2).toAbsolutePath().normalize();
@@ -30,7 +30,7 @@ public final class Differ {
     }
 
     public static String generate(String filePath1, String filePath2) throws Exception {
-        return generate("stylish", filePath1, filePath2);
+        return generate(filePath1, filePath2, "stylish");
     }
 
     private static String getFileExtension(String filePath) {

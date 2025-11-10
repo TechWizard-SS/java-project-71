@@ -17,7 +17,7 @@ public class DifferTest {
         Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_stylish_flat.txt")).toURI());
 
         String expected = Files.readString(file3);
-        String actual = Differ.generate("stylish", file1.toString(), file2.toString());
+        String actual = Differ.generate(file1.toString(), file2.toString(), "stylish");
 
         assertEquals(expected, actual);
     }
@@ -29,7 +29,7 @@ public class DifferTest {
         Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_plain_flat.txt")).toURI());
 
         String expected = Files.readString(file3);
-        String actual = Differ.generate("plain", file1.toString(), file2.toString());
+        String actual = Differ.generate(file1.toString(), file2.toString(), "plain");
 
         assertEquals(expected, actual);
     }
@@ -41,7 +41,7 @@ public class DifferTest {
         Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_json_flat.txt")).toURI());
 
         String expected = Files.readString(file3);
-        String actual = Differ.generate("json", file1.toString(), file2.toString());
+        String actual = Differ.generate(file1.toString(), file2.toString(), "json");
 
         assertEquals(expected, actual);
     }
@@ -55,7 +55,7 @@ public class DifferTest {
         Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_stylish_flat.txt")).toURI());
 
         String expected = Files.readString(file3);
-        String actual = Differ.generate(file1.toString(), file2.toString());
+        String actual = Differ.generate(file1.toString(), file2.toString(), "stylish");
 
         assertEquals(expected, actual);
     }
@@ -67,7 +67,7 @@ public class DifferTest {
         Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_plain_flat.txt")).toURI());
 
         String expected = Files.readString(file3);
-        String actual = Differ.generate("plain", file1.toString(), file2.toString());
+        String actual = Differ.generate(file1.toString(), file2.toString(), "plain");
 
         assertEquals(expected, actual);
     }
@@ -79,7 +79,7 @@ public class DifferTest {
         Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_json_flat.txt")).toURI());
 
         String expected = Files.readString(file3);
-        String actual = Differ.generate("json", file1.toString(), file2.toString());
+        String actual = Differ.generate(file1.toString(), file2.toString(), "json");
 
         assertEquals(expected, actual);
     }
@@ -93,7 +93,7 @@ public class DifferTest {
         Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_stylish_nested.txt")).toURI());
 
         String expected = Files.readString(file3);
-        String actual = Differ.generate("stylish", file1.toString(), file2.toString());
+        String actual = Differ.generate(file1.toString(), file2.toString(), "stylish");
 
         assertEquals(expected, actual);
     }
@@ -105,7 +105,7 @@ public class DifferTest {
         Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_plain_nested.txt")).toURI());
 
         String expected = Files.readString(file3);
-        String actual = Differ.generate("plain", file1.toString(), file2.toString());
+        String actual = Differ.generate(file1.toString(), file2.toString(), "plain");
 
         assertEquals(expected, actual);
     }
@@ -117,7 +117,7 @@ public class DifferTest {
         Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_json_nested.txt")).toURI());
 
         String expected = Files.readString(file3);
-        String actual = Differ.generate("json", file1.toString(), file2.toString());
+        String actual = Differ.generate(file1.toString(), file2.toString(), "json");
 
         assertEquals(expected, actual);
     }
@@ -131,7 +131,7 @@ public class DifferTest {
         Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_stylish_nested.txt")).toURI());
 
         String expected = Files.readString(file3);
-        String actual = Differ.generate("stylish", file1.toString(), file2.toString());
+        String actual = Differ.generate(file1.toString(), file2.toString(), "stylish");
 
         assertEquals(expected, actual);
     }
@@ -143,7 +143,7 @@ public class DifferTest {
         Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_plain_nested.txt")).toURI());
 
         String expected = Files.readString(file3);
-        String actual = Differ.generate("plain", file1.toString(), file2.toString());
+        String actual = Differ.generate(file1.toString(), file2.toString(), "plain");
 
         assertEquals(expected, actual);
     }
@@ -155,7 +155,7 @@ public class DifferTest {
         Path file3 = Path.of(Objects.requireNonNull(getClass().getResource("/expected_json_nested.txt")).toURI());
 
         String expected = Files.readString(file3);
-        String actual = Differ.generate("json", file1.toString(), file2.toString());
+        String actual = Differ.generate(file1.toString(), file2.toString(), "json");
 
         assertEquals(expected, actual);
     }
